@@ -1,0 +1,11 @@
+{
+  "name": "olp-keycloak",
+  "version": "1.0.0",
+  "main": "console/src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "keycloak-admin-client": "^0.12.0"
+  }
+}

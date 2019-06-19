@@ -1,0 +1,3 @@
+FROM {{ @('docker.image.keycloak') }}
+
+COPY ./standalone/configuration/ /opt/jboss/keycloak/standalone/configuration/

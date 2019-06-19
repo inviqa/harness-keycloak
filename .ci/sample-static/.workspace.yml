@@ -1,0 +1,10 @@
+workspace('sso'):
+  description: generated local workspace for keycloak.
+  harness: inviqa/keycloak
+
+attribute('app.build'): static
+
+attribute('aws.bucket'): null
+attribute('app.repository'): null
+attribute('aws.id'): null
+attribute('aws.key'): null

@@ -1,0 +1,24 @@
+harness('inviqa/keycloak'):
+  description: A docker based development environment for Keycloak
+  require:
+    services:
+      - proxy
+    confd:
+      - harness:/
+---
+attributes:
+  docker-sync: false
+  app:
+    services:
+      - mysql
+
+  keycloak:
+    master:
+      admin:
+        username: admin
+        password: admin123
+---
+import:
+  - harness/config/*.yml
+  - harness/attributes/*.yml
+  - harness/attributes/environment/={env('MY127WS_ENV','local')}.yml

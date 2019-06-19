@@ -1,0 +1,13 @@
+command('app build'):
+  exec: |
+    #!bash(workspace:/)|@
+    ws app build console
+    ws app build keycloak
+command('app build console'):
+  exec: |
+    #!bash(workspace:/)|@
+    passthru docker build -t @('docker.repository'):@('app.version')-console -f .my127ws/docker/image/console/Dockerfile .
+command('app build keycloak'):
+  exec: |
+    #!bash(harness:/)|@
+    passthru docker build -t @('docker.repository'):@('app.version')-keycloak -f .my127ws/docker/image/keycloak/Dockerfile .

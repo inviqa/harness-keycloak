@@ -34,15 +34,14 @@ attributes.default:
       keycloak: = 'jboss/keycloak:' ~ @('keycloak.version')
 
   backend:
-    path: /app
+    path: /app/console
     build:
-      when: -f "composer.json"
-      steps:
-        - task "composer:install"
+      steps: []
     install:
       steps: []
     init:
-      steps: []
+      steps:
+        - npm run configure
 
   frontend:
     path: /app

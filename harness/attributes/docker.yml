@@ -1,0 +1,33 @@
+attributes:
+  services:
+    console:
+      environment:
+        HOST_OS_FAMILY: = @('host.os')
+        APP_NAME: = @('workspace.name')
+        APP_HOST: = @('hostname')
+        DB_HOST: = @('database.host')
+        DB_USER: = @('database.user')
+        DB_PASS: = @('database.pass')
+        DB_NAME: = @('database.name')
+        DB_ROOT_PASS: = @('database.root_pass')
+
+        KEYCLOAK_USER: = @('keycloak.master.admin.username')
+        KEYCLOAK_PASSWORD: = @('keycloak.master.admin.password')
+        KEYCLOAK_INTERNAL_URL: http://keycloak:8080/auth
+        KEYCLOAK_EXTERNAL_URL: = 'https://' ~ @('hostname') ~ '/auth'
+
+    keycloak:
+      environment:
+        HOST_OS_FAMILY: = @('host.os')
+        APP_NAME: = @('workspace.name')
+        APP_HOST: = @('hostname')
+        DB_VENDOR: mysql
+        DB_ADDR: = @('database.host')
+        DB_USER: = @('database.user')
+        DB_PASSWORD: = @('database.pass')
+        DB_DATABASE: = @('database.name')
+
+        PROXY_ADDRESS_FORWARDING: 'true'
+
+        KEYCLOAK_USER: = @('keycloak.master.admin.username')
+        KEYCLOAK_PASSWORD: = @('keycloak.master.admin.password')

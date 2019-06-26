@@ -21,7 +21,7 @@
     labels:
       - traefik.enable=false
     environment:
-{% include blocks ~ 'environment/console.yml.twig' %}
+{{ to_yaml(@('services.console.environment'), 2, 6) | raw }}
     networks:
       - private
 
@@ -47,4 +47,4 @@
           - {{ @('hostname') }}
       shared: {}
     environment:
-{% include blocks ~ 'environment/keycloak.yml.twig' %}
+{{ to_yaml(@('services.keycloak.environment'), 2, 6) | raw }}

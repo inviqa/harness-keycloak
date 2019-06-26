@@ -1,21 +1,26 @@
 'use strict';
  
-let adminClient = require('keycloak-admin-client');
+const KcAdmin = require('keycloak-admin');
  
-let settings = {
+const settings = {
   baseUrl: process.env.KEYCLOAK_INTERNAL_URL,
-  username: process.env.KEYCLOAK_USER,
-  password: process.env.KEYCLOAK_PASSWORD,
-  grant_type: 'password',
-  client_id: 'admin-cli'
 };
 
-(async (settings) => {
-    let client = await adminClient(settings);
+const auth = {
+  username: process.env.KEYCLOAK_USER,
+  password: process.env.KEYCLOAK_PASSWORD,
+  grantType: 'password',
+  clientId: 'admin-cli'
+};
 
-    console.log('client', client);
+(async (settings, auth) => {
+    const adminClient = new KcAdmin.default(settings);
 
-    let realms = await client.realms.find();
+    await adminClient.auth(auth);
+
+    console.log('adminClient', adminClient);
+
+    let realms = await adminClient.realms.find();
     console.log('realms', realms);
 
-})(settings);
+})(settings, auth);

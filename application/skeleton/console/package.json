@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "./src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "configure": "node ./src/index.js"
   },
   "dependencies": {
-    "keycloak-admin-client": "^0.12.0"
+    "keycloak-admin": "^1.12.0"
   }
 }

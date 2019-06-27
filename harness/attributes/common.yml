@@ -36,10 +36,13 @@ attributes.default:
   backend:
     path: /app/console
     build:
-      steps: []
+      when: 'true'
+      steps:
+        - run "npm install"
     install:
       steps: []
     init:
+      when: 'true'
       steps:
         - npm run configure
 

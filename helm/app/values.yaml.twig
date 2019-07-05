@@ -1,8 +1,8 @@
 {% set blocks  = 'helm/app/_twig/values.yaml/' %}
-environment:
-{% include blocks ~ 'environment.yml.twig' %}
 docker:
   config: {{ @('docker.config') }}
+  services:
+{{ to_yaml(@('services'), 2, 4) | raw }}
   image:
     console: {{ @('docker.repository') ~ ':' ~ @('app.version') ~ '-console' }}
     keycloak: {{ @('docker.repository') ~ ':' ~ @('app.version') ~ '-keycloak' }}

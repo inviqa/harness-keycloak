@@ -15,7 +15,12 @@ spec:
         app.service: keycloak
     spec:
       containers:
-      - image: {{ .Values.docker.image.keycloak }}
+      - env:
+        {{ range $key, $value := .Values.docker.services.keycloak.environment }}
+        - name: {{ $key }}
+          value: "{{ $value }}"
+        {{ end }}
+        image: {{ .Values.docker.image.keycloak }}
         imagePullPolicy: Always
         name: keycloak
         ports:
@@ -26,11 +31,6 @@ spec:
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 10
-        env:
-        {{ range $key, $value := .Values.environment }}
-        - name: {{ $key }}
-          value: "{{ $value }}"
-        {{ end }}
       imagePullSecrets:
       - name: docker-config
       restartPolicy: Always

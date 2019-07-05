@@ -1,0 +1,46 @@
+{{ if .Values.service.postgres }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  labels:
+    app.service: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.service: postgres
+  template:
+    metadata:
+      labels:
+        app.service: postgres
+    spec:
+      containers:
+      - env:
+        {{ range $key, $value := .Values.docker.services.postgres.environment }}
+        - name: {{ $key }}
+          value: "{{ $value }}"
+        {{ end }}
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        image: postgres:9.6
+        imagePullPolicy: Always
+        name: postgres
+        ports:
+        - containerPort: 5432
+        resources: {}
+        readinessProbe:
+          tcpSocket:
+            port: 5432
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        volumeMounts:
+        - name: postgres-persistent-storage
+          mountPath: /var/lib/postgresql/data
+      restartPolicy: Always
+      volumes:
+      - name: postgres-persistent-storage
+        persistentVolumeClaim:
+          claimName: postgres-pv-claim
+status: {}
+{{ end }}

@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  creationTimestamp: null
+  labels:
+    app.service: keycloak
+  name: keycloak
+spec:
+  rules:
+  - host: {{ .Values.environment.APP_HOST }}
+    http:
+      paths:
+      - backend:
+          serviceName: keycloak
+          servicePort: 80
+status:
+  loadBalancer: {}

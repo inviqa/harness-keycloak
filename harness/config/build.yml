@@ -9,5 +9,5 @@ command('app build console'):
     passthru docker build -t @('docker.repository'):@('app.version')-console -f .my127ws/docker/image/console/Dockerfile .
 command('app build keycloak'):
   exec: |
-    #!bash(harness:/)|@
+    #!bash(workspace:/)|@
     passthru docker build -t @('docker.repository'):@('app.version')-keycloak -f .my127ws/docker/image/keycloak/Dockerfile .

@@ -9,6 +9,7 @@ confd('harness:/'):
   - { src: docker/image/console/root/lib/task/database/available.sh }
   - { src: docker/image/console/root/lib/task/init.sh }
   - { src: docker/image/console/root/lib/task/install.sh }
+  - { src: docker/image/console/root/lib/task/migrate.sh }
   - { src: docker/image/keycloak/Dockerfile }
   - { src: application/overlay/Jenkinsfile }
   - { src: application/overlay/.dockerignore, dst: workspace:/.dockerignore }

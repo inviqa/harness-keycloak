@@ -1,0 +1,11 @@
+{% set blocks  = 'helm/app/_twig/values.yaml/' %}
+environment:
+{% include blocks ~ 'environment.yml.twig' %}
+docker:
+  config: {{ @('docker.config') }}
+  image:
+    console: {{ @('docker.repository') ~ ':' ~ @('app.version') ~ '-console' }}
+    keycloak: {{ @('docker.repository') ~ ':' ~ @('app.version') ~ '-keycloak' }}
+service:
+  mysql: {{ ("mysql" in @('app.services')) ? 'true' : 'false' }}
+  postgres: {{ ("postgres" in @('app.services')) ? 'true' : 'false' }}

@@ -5,8 +5,6 @@ docker:
   config: {{ @('docker.config') }}
   image:
     console: {{ @('docker.repository') ~ ':' ~ @('app.version') ~ '-console' }}
-    fpm: {{ @('docker.repository') ~ ':' ~ @('app.version') ~ '-php-fpm' }}
-    nginx: {{ @('docker.repository') ~ ':' ~ @('app.version') ~ '-nginx' }}
-    elasticsearch: {{ @('elasticsearch.image') ~ ':' ~ @('elasticsearch.tag') }}
+    keycloak: {{ @('docker.repository') ~ ':' ~ @('app.version') ~ '-keycloak' }}
 service:
   mysql: {{ ("mysql" in @('app.services')) ? 'true' : 'false' }}

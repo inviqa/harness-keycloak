@@ -1,31 +1,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx
+  name: keycloak
   labels:
-    app.service: nginx
+    app.service: keycloak
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.service: nginx
+      app.service: keycloak
   template:
     metadata:
       labels:
-        app.service: nginx
+        app.service: keycloak
     spec:
       containers:
-      - image: {{ .Values.docker.image.nginx }}
+      - image: {{ .Values.docker.image.keycloak }}
         imagePullPolicy: Always
-        name: nginx
+        name: keycloak
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         resources: {}
         readinessProbe:
           tcpSocket:
-            port: 80
+            port: 8080
           initialDelaySeconds: 5
           periodSeconds: 10
+        env:
+        {{ range $key, $value := .Values.environment }}
+        - name: {{ $key }}
+          value: "{{ $value }}"
+        {{ end }}
       imagePullSecrets:
       - name: docker-config
       restartPolicy: Always

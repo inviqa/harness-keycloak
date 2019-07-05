@@ -17,6 +17,9 @@ attributes:
       admin:
         username: admin
         password: admin123
+        
+  helm:
+    timeout: 900
 ---
 import:
   - harness/config/*.yml

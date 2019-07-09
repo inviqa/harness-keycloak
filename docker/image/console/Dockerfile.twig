@@ -33,7 +33,7 @@ ENV APP_MODE={{ @('app.mode') }} \
   ASSETS_DIR={{ @('assets.local') }}
 
 {% if @('app.build') == 'static' %}
-RUN chown build:build /app
+RUN chown node:node /app
 COPY --chown=node:node .my127ws/application  /home/node/application
 COPY --chown=node:node ./                    /app
 USER node

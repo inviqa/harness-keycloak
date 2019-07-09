@@ -45,6 +45,10 @@ attributes.default:
       when: 'true'
       steps:
         - npm run configure
+    migrate:
+      when: 'true'
+      steps:
+        - npm run configure
 
   frontend:
     path: /app

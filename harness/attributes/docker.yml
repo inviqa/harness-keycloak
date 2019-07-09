@@ -31,3 +31,16 @@ attributes:
 
         KEYCLOAK_USER: = @('keycloak.master.admin.username')
         KEYCLOAK_PASSWORD: = @('keycloak.master.admin.password')
+
+    mysql:
+      environment:
+        MYSQL_ROOT_PASSWORD: = @('database.root_pass')
+        MYSQL_DATABASE: = @('database.name')
+        MYSQL_USER: = @('database.user')
+        MYSQL_PASSWORD: = @('database.pass')
+
+    postgres:
+      environment:
+        POSTGRES_DB: = @('database.name')
+        POSTGRES_USER: = @('database.user')
+        POSTGRES_PASSWORD: = @('database.pass')

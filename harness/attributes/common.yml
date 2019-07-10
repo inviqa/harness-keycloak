@@ -70,6 +70,10 @@ attributes.default:
   keycloak:
     version: 6.0.1
 
+    external:
+      http_port: 80
+      https_port: 443
+
   assets:
     remote: ="s3://"~@("aws.bucket")~"/development"
     local: tools/assets/development

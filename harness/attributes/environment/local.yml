@@ -4,3 +4,8 @@ attributes:
     build: dynamic
     mode: development
     version: develop
+
+  services:
+    keycloak:
+      environment:
+        KEYCLOAK_HOSTNAME: = @('hostname')

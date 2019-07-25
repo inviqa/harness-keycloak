@@ -28,6 +28,12 @@ pipeline {
             steps { sh 'ws app deploy preview' }
         }
 {% endif %}
+{% if @('pipeline.qa.enabled') == 'yes' %}
+        stage('Deploy QA') {
+            when { not { triggeredBy 'TimerTrigger' } }
+            steps { sh 'ws app deploy qa' }
+        }
+{% endif %}
     }
     post {
         always {

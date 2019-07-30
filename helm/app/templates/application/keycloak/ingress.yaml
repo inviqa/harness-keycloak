@@ -7,7 +7,7 @@ metadata:
   name: keycloak
 spec:
   rules:
-  - host: {{ .Values.docker.services.keycloak.environment.APP_HOST }}
+  - host: {{ .Values.docker.services.keycloak.environment.KEYCLOAK_HOSTNAME }}
     http:
       paths:
       - backend:

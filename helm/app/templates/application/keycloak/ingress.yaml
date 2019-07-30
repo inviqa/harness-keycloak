@@ -12,6 +12,6 @@ spec:
       paths:
       - backend:
           serviceName: keycloak
-          servicePort: 80
+          servicePort: 8080
 status:
   loadBalancer: {}

@@ -30,6 +30,7 @@ attributes.default:
       enabled: no
       namespace: = @('workspace.name') 
       hostname: = @('pipeline.qa.namespace') ~ '.' ~ @('domain')
+      services: ~
 
   docker:
     repository: = @("workspace.name")

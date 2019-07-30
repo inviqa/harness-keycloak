@@ -6,4 +6,4 @@ app:
     console:
       environment:
         APP_HOST: {{ @('pipeline.qa.hostname') }}
-        KEYCLOAK_EXTERNAL_URL: = 'https://' ~ @('pipeline.qa.hostname') ~ '/auth'
+        KEYCLOAK_EXTERNAL_URL: = 'https://' ~ @('pipeline.qa.hostname') ~ '/auth' 

@@ -1,13 +1,6 @@
 
 attributes:
-  namespace: =exec("git log -n 1 --pretty=format:'%H'")
-  hostname: =@('workspace.name') ~ '.' ~ @('domain')
+  hostname: = @('pipeline.qa.hostname')
   app:
     build: static
-    version: =exec("git log -n 1 --pretty=format:'%H'")
-
-  services:
-    keycloak:
-      environment:
-        KEYCLOAK_HOSTNAME: = @('pipeline.qa.hostname') 
-        KEYCLOAK_INTERNAL_URL: http://keycloak/auth
+    version: = exec("git log -n 1 --pretty=format:'%H'")

@@ -4,9 +4,3 @@ attributes:
     build: dynamic
     mode: development
     version: develop
-
-  services:
-    keycloak:
-      environment:
-        KEYCLOAK_HOSTNAME: = @('hostname')
-        KEYCLOAK_INTERNAL_URL: http://keycloak:8080/auth

@@ -31,6 +31,7 @@ attributes:
         KEYCLOAK_USER: = @('keycloak.master.admin.username')
         KEYCLOAK_PASSWORD: = @('keycloak.master.admin.password')
 
+        KEYCLOAK_HOSTNAME: = @('hostname')
         KEYCLOAK_HTTP_PORT: = @('keycloak.external.http_port')
         KEYCLOAK_HTTPS_PORT: = @('keycloak.external.https_port')
 

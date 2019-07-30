@@ -1,3 +1,0 @@
-app:
-  environment:
-    APP_HOST: qa-keycloak.olp.webpipeline.net

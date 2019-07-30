@@ -26,6 +26,10 @@ attributes.default:
       enabled: no
       namespace: = @('workspace.name') ~ '-' ~ slugify(branch())
       hostname:  = @('pipeline.preview.namespace') ~ '.example.com'
+    qa:
+      enabled: no
+      namespace: = @('workspace.name') 
+      hostname: = @('pipeline.qa.namespace') ~ '.' ~ @('domain')
 
   docker:
     repository: = @("workspace.name")

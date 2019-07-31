@@ -1,5 +1,6 @@
-{% if @('pipeline.qa.services') %}
-docker:
-  services:
-{{ to_yaml(@('pipeline.qa.services'), 2, 4) | raw }}
+{% if @('environments.qa.services') %}
+app:
+  docker:
+    services:
+{{ to_yaml(@('environments.qa.services'), 2, 6) | raw }}
 {% endif %}

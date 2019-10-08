@@ -8,7 +8,7 @@ metadata:
    app.service: keycloak
 spec:
  hosts:
-- {{ .Values.docker.services.keycloak.environment.KEYCLOAK_HOSTNAME }}
+ - {{ .Values.docker.services.keycloak.environment.KEYCLOAK_HOSTNAME }}
  gateways:
  - istio-system/{{ .Release.Namespace }}-gateway
  http:

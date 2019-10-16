@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: app-migrate
+  name: {{ .Values.prefix }}app-migrate
   annotations:
     helm.sh/hook: "post-upgrade"
     helm.sh/hook-delete-policy: "before-hook-creation"
@@ -19,5 +19,5 @@ spec:
         name: app-migrate
         command: ["app", "migrate"]
       imagePullSecrets:
-      - name: docker-config
+      - name: {{ .Values.prefix }}docker-config
       restartPolicy: Never

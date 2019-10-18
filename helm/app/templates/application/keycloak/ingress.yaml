@@ -4,15 +4,15 @@ kind: Ingress
 metadata:
   creationTimestamp: null
   labels:
-    app.service: {{ .Values.prefix }}keycloak
-  name: {{ .Values.prefix }}keycloak
+    app.service: {{ .Values.resourcePrefix }}keycloak
+  name: {{ .Values.resourcePrefix }}keycloak
 spec:
   rules:
   - host: {{ .Values.docker.services.keycloak.environment.KEYCLOAK_HOSTNAME }}
     http:
       paths:
       - backend:
-          serviceName: {{ .Values.prefix }}keycloak
+          serviceName: {{ .Values.resourcePrefix }}keycloak
           servicePort: 8080
 status:
   loadBalancer: {}

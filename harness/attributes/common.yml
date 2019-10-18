@@ -30,15 +30,15 @@ attributes.default:
       enabled: no
       namespace: = @('workspace.name') 
       hostname: = @('pipeline.qa.namespace') ~ '.' ~ @('domain')
-      servicePrefix: = @('workspace.name') ~ '-'
+      resourcePrefix: = @('workspace.name') ~ '-'
       services:
         console:
           environment:
-            DB_HOST: = @('pipeline.qa.servicePrefix') ~ 'mysql'
-            KEYCLOAK_INTERNAL_URL: = 'http://' ~ @('pipeline.qa.servicePrefix') ~ 'keycloak:8080/auth'
+            DB_HOST: = @('pipeline.qa.resourcePrefix') ~ 'mysql'
+            KEYCLOAK_INTERNAL_URL: = 'http://' ~ @('pipeline.qa.resourcePrefix') ~ 'keycloak:8080/auth'
         keycloak:
           environment:
-            DB_HOST: = @('pipeline.qa.servicePrefix') ~ 'mysql'
+            DB_HOST: = @('pipeline.qa.resourcePrefix') ~ 'mysql'
 
   docker:
     repository: = @("workspace.name")

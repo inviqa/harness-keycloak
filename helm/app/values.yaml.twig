@@ -10,4 +10,4 @@ service:
   mysql: {{ ("mysql" in @('app.services')) ? 'true' : 'false' }}
   postgres: {{ ("postgres" in @('app.services')) ? 'true' : 'false' }}
 ingress: "standard" # standard or istio
-resourcePrefix: ~
+resourcePrefix: {{ @('pipeline.base.resourcePrefix') | raw }}

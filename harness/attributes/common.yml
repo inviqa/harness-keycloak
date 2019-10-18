@@ -26,11 +26,13 @@ attributes.default:
       enabled: no
       namespace: = @('workspace.name') ~ '-' ~ slugify(branch())
       hostname:  = @('pipeline.preview.namespace') ~ '.example.com'
+    base:
+      resourcePrefix: ~
     qa:
       enabled: no
       namespace: = @('workspace.name') 
       hostname: = @('pipeline.qa.namespace') ~ '.' ~ @('domain')
-      resourcePrefix: = @('workspace.name') ~ '-'
+      resourcePrefix: ~
       services:
         console:
           environment:

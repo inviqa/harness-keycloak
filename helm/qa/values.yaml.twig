@@ -1,8 +1,7 @@
 {% if @('pipeline.qa.services') %}
-app:
+{{ @('workspace.name') }}:
+  prefix: {{ @('pipeline.qa.servicePrefix') | raw }}
   docker:
     services:
 {{ to_yaml(@('pipeline.qa.services'), 2, 6) | raw }}
 {% endif %}
-
-  prefix: {{ @('pipeline.qa.servicePrefix') | raw }}

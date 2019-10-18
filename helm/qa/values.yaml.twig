@@ -5,4 +5,4 @@ app:
 {{ to_yaml(@('pipeline.qa.services'), 2, 6) | raw }}
 {% endif %}
 
-prefix: ~
+  prefix: {{ @('pipeline.qa.servicePrefix') | raw }}

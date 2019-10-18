@@ -38,7 +38,7 @@ attributes.default:
             KEYCLOAK_INTERNAL_URL: = 'http://' ~ @('pipeline.qa.resourcePrefix') ~ 'keycloak:8080/auth'
         keycloak:
           environment:
-            DB_HOST: = @('pipeline.qa.resourcePrefix') ~ 'mysql'
+            DB_ADDR: = @('pipeline.qa.resourcePrefix') ~ 'mysql'
 
   docker:
     repository: = @("workspace.name")

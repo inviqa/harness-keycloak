@@ -2,4 +2,4 @@
   docker:
     services:
 {{ to_yaml(@('pipeline.qa.services'), 2, 6) | raw }}
-  resourcePrefix: {{ @('pipeline.qa.resourcePrefix') | raw }}
+  resourcePrefix: {{ @('pipeline.qa.resourcePrefix') | json_encode | raw }}

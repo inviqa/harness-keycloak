@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: keycloak
+  name: {{ .Values.resourcePrefix }}keycloak
   labels:
-    app.service: keycloak
+    app.service: {{ .Values.resourcePrefix }}keycloak
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.service: keycloak
+      app.service: {{ .Values.resourcePrefix }}keycloak
   template:
     metadata:
       labels:
-        app.service: keycloak
+        app.service: {{ .Values.resourcePrefix }}keycloak
     spec:
       containers:
       - env:
@@ -32,6 +32,6 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 10
       imagePullSecrets:
-      - name: docker-config
+      - name: {{ .Values.resourcePrefix }}docker-config
       restartPolicy: Always
 status: {}

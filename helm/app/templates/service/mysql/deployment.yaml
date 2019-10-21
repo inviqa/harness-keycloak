@@ -2,18 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql
+  name: {{ .Values.resourcePrefix }}mysql
   labels:
-    app.service: mysql
+    app.service: {{ .Values.resourcePrefix }}mysql
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.service: mysql
+      app.service: {{ .Values.resourcePrefix }}mysql
   template:
     metadata:
       labels:
-        app.service: mysql
+        app.service: {{ .Values.resourcePrefix }}mysql
     spec:
       containers:
       - env:
@@ -36,12 +36,12 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 10
         volumeMounts:
-        - name: mysql-persistent-storage
+        - name: {{ .Values.resourcePrefix }}mysql-persistent-storage
           mountPath: /var/lib/mysql
       restartPolicy: Always
       volumes:
-      - name: mysql-persistent-storage
+      - name: {{ .Values.resourcePrefix }}mysql-persistent-storage
         persistentVolumeClaim:
-          claimName: mysql-pv-claim
+          claimName: {{ .Values.resourcePrefix }}mysql-pv-claim
 status: {}
 {{ end }}

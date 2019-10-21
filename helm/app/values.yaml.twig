@@ -2,7 +2,7 @@
 docker:
   config: {{ @('docker.config') }}
   services:
-{{ to_yaml(@('services'), 2, 4) | raw }}
+{{ deep_merge_to_yaml([@('services'), @('pipeline.base.services')], 2, 4) | raw }}
   image:
     console: {{ @('docker.repository') ~ ':' ~ @('app.version') ~ '-console' }}
     keycloak: {{ @('docker.repository') ~ ':' ~ @('app.version') ~ '-keycloak' }}
@@ -10,3 +10,4 @@ service:
   mysql: {{ ("mysql" in @('app.services')) ? 'true' : 'false' }}
   postgres: {{ ("postgres" in @('app.services')) ? 'true' : 'false' }}
 ingress: "standard" # standard or istio
+resourcePrefix: {{ @('pipeline.base.resourcePrefix') | raw }}

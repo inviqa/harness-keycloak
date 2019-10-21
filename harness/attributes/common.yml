@@ -26,11 +26,29 @@ attributes.default:
       enabled: no
       namespace: = @('workspace.name') ~ '-' ~ slugify(branch())
       hostname:  = @('pipeline.preview.namespace') ~ '.example.com'
+    base:
+      resourcePrefix: ~
+      services:
+        console:
+          environment:
+            DB_HOST: = @('pipeline.base.resourcePrefix') ~ 'mysql'
+            KEYCLOAK_INTERNAL_URL: = 'http://' ~ @('pipeline.base.resourcePrefix') ~ 'keycloak:8080/auth'
+        keycloak:
+          environment:
+            DB_ADDR: = @('pipeline.base.resourcePrefix') ~ 'mysql'
     qa:
       enabled: no
       namespace: = @('workspace.name') 
       hostname: = @('pipeline.qa.namespace') ~ '.' ~ @('domain')
-      services: ~
+      resourcePrefix: ~
+      services:
+        console:
+          environment:
+            DB_HOST: = @('pipeline.qa.resourcePrefix') ~ 'mysql'
+            KEYCLOAK_INTERNAL_URL: = 'http://' ~ @('pipeline.qa.resourcePrefix') ~ 'keycloak:8080/auth'
+        keycloak:
+          environment:
+            DB_ADDR: = @('pipeline.qa.resourcePrefix') ~ 'mysql'
 
   docker:
     repository: = @("workspace.name")

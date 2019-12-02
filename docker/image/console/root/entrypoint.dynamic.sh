@@ -9,22 +9,22 @@ setup_app_volume_permissions()
 {
     case "$STRATEGY" in
         "host-linux-normal")
-            usermod  -u "$(stat -c '%u' /app)" build
-            groupmod -g "$(stat -c '%g' /app)" build
+            usermod  -u "$(stat -c '%u' /app)" node
+            groupmod -g "$(stat -c '%g' /app)" node
             ;;
         "host-osx-normal")
-            usermod  -u 1000 build
-            groupmod -g 1000 build
+            usermod  -u 1000 node
+            groupmod -g 1000 node
             ;;
         "host-osx-dockersync")
-            usermod  -u 1000 build
-            groupmod -g 1000 build
+            usermod  -u 1000 node
+            groupmod -g 1000 node
             ;;
         *)
             exit 1
     esac
 
-    chown build:build /app
+    chown node:node /app
 }
 
 resolve_volume_mount_strategy()

@@ -39,9 +39,11 @@ COPY --chown=node:node ./                    /app
 USER node
 RUN app build
 USER root
+
+ENTRYPOINT ["/entrypoint.sh"]
 {% else %}
 VOLUME /app
 VOLUME /home/node/application
-{% endif %}
 
-ENTRYPOINT /entrypoint.sh
+ENTRYPOINT ["/entrypoint.dynamic.sh"]
+{% endif %}

@@ -55,6 +55,8 @@ attributes.default:
             DB_ADDR: = @('pipeline.qa.resourcePrefix') ~ 'mysql'
 
   docker:
+    compose:
+      file_version: '3.7'
     repository: = @("workspace.name")
     image:
       console: = 'node:' ~ @('node.version') ~ '-stretch'

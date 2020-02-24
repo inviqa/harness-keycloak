@@ -32,6 +32,9 @@ attributes.default:
       hostname:  = @('pipeline.preview.namespace') ~ '.example.com'
     base:
       resourcePrefix: ~
+      istio:
+        gateways:
+          - "istio-system/{{ .Release.Namespace }}-gateway"
       services:
         console:
           environment:

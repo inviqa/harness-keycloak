@@ -1,13 +1,14 @@
 command('app build'):
+  env:
+    COMPOSE_PROJECT_NAME: = @('namespace')
   exec: |
     #!bash(workspace:/)|@
-    ws app build console
-    ws app build keycloak
-command('app build console'):
+    passthru docker-compose build
+
+command('app build <service>'):
+  env:
+    COMPOSE_PROJECT_NAME: = @('namespace')
+    SERVICE: = input.argument('service')
   exec: |
     #!bash(workspace:/)|@
-    passthru docker build -t @('docker.repository'):@('app.version')-console -f .my127ws/docker/image/console/Dockerfile .
-command('app build keycloak'):
-  exec: |
-    #!bash(workspace:/)|@
-    passthru docker build -t @('docker.repository'):@('app.version')-keycloak -f .my127ws/docker/image/keycloak/Dockerfile .
+    passthru docker-compose build "$SERVICE"

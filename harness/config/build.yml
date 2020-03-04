@@ -4,7 +4,7 @@ command('app build'):
     LOGIN_ON_BUILD: "= @('docker.build.login') ? 'true' : 'false'"
   exec: |
     #!bash(workspace:/)|@
-    [ "$LOGIN_ON_BUILD" != "true" ] || docker login -u="@('docker.username')" -p="@('docker.password')" @('docker.repository')
+    [ "$LOGIN_ON_BUILD" != "true" ] || echo "@('docker.password')" | run docker login --username="@('docker.username')" --password-stdin @('docker.repository')
     passthru docker-compose build
     [ "$LOGIN_ON_BUILD" != "true" ] || run docker logout @('docker.repository')
 

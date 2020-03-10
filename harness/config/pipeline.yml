@@ -1,6 +1,6 @@
 command('app publish'): |
   #!bash(workspace:/)|@
-  run docker login -u="@('docker.username')" -p="@('docker.password')" @('docker.repository')
+  echo "@('docker.password')" | run docker login --username="@('docker.username')" --password-stdin @('docker.repository')
   run docker push @('docker.repository'):@('app.version')-console
   run docker push @('docker.repository'):@('app.version')-keycloak
   run docker logout @('docker.repository')

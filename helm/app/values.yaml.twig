@@ -6,6 +6,8 @@ docker:
   image:
     console: {{ @('docker.repository') ~ ':' ~ @('app.version') ~ '-console' }}
     keycloak: {{ @('docker.repository') ~ ':' ~ @('app.version') ~ '-keycloak' }}
+prometheus:
+{{ to_yaml(@('pipeline.base.prometheus'), 2, 2) | raw }}
 service:
   mysql: {{ ("mysql" in @('app.services')) ? 'true' : 'false' }}
   postgres: {{ ("postgres" in @('app.services')) ? 'true' : 'false' }}

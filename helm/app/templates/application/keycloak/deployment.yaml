@@ -24,7 +24,8 @@ spec:
         imagePullPolicy: Always
         name: keycloak
         ports:
-        - containerPort: 8080
+        - name: http
+          containerPort: 8080
         resources: {}
         readinessProbe:
           tcpSocket:

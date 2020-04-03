@@ -17,6 +17,7 @@ attributes:
         KEYCLOAK_EXTERNAL_URL: = 'https://' ~ @('hostname') ~ '/auth'
 
     keycloak:
+      metricsEnabled: false
       environment:
         HOST_OS_FAMILY: = @('host.os')
         DB_VENDOR: mysql

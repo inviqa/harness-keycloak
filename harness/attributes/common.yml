@@ -31,6 +31,8 @@ attributes.default:
       namespace: = @('workspace.name') ~ '-' ~ slugify(branch())
       hostname:  = @('pipeline.preview.namespace') ~ '.example.com'
     base:
+      prometheus:
+        podMonitoring: false
       resourcePrefix: ~
       istio:
         gateways:
@@ -41,6 +43,8 @@ attributes.default:
             DB_HOST: = @('pipeline.base.resourcePrefix') ~ 'mysql'
             KEYCLOAK_INTERNAL_URL: = 'http://' ~ @('pipeline.base.resourcePrefix') ~ 'keycloak:8080/auth'
         keycloak:
+          metricsEnabled: false
+          metricsEndpoints: []
           environment:
             DB_ADDR: = @('pipeline.base.resourcePrefix') ~ 'mysql'
     qa:
@@ -105,6 +109,9 @@ attributes.default:
     external:
       http_port: 80
       https_port: 443
+
+    plugins:
+      keycloak-metrics-api: false
 
   assets:
     remote: ="s3://"~@("aws.bucket")~"/development"

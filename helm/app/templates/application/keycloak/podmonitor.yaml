@@ -1,0 +1,16 @@
+{{- if .Values.prometheus.podMonitoring -}}
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: {{ .Values.resourcePrefix }}keycloak
+  labels:
+    app.service: {{ .Values.resourcePrefix }}keycloak
+spec:
+  selector:
+    matchLabels:
+      app.service: {{ .Values.resourcePrefix }}keycloak
+  podMetricsEndpoints:
+{{- if .Values.docker.services.keycloak.metricsEnabled -}}
+{{ .Values.docker.services.keycloak.metricsEndpoints | toYaml | nindent 6 -}}
+{{- end -}}
+{{- end -}}

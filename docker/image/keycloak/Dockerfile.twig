@@ -1,7 +1,7 @@
 FROM {{ @('docker.image.keycloak') }}
 
 {% if @('keycloak.plugins.keycloak-metrics-spi') %}
-ADD --chown=jboss:jboss https://github.com/aerogear/keycloak-metrics-spi/releases/download/1.0.4/keycloak-metrics-spi-1.0.4.jar /opt/jboss/keycloak/standalone/deployments/
+ADD --chown=1000:1000 https://github.com/aerogear/keycloak-metrics-spi/releases/download/1.0.4/keycloak-metrics-spi-1.0.4.jar /opt/jboss/keycloak/standalone/deployments/
 {% endif %}
 COPY ./standalone/configuration/ /opt/jboss/keycloak/standalone/configuration/
 COPY ./.my127ws/docker/image/keycloak/docker-override-entrypoint.sh /opt/jboss/tools/

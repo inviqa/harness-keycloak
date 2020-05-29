@@ -9,14 +9,15 @@ spec:
   template:
     spec:
       containers:
-      - env:
+      - name: app-migrate
+        enableServiceLinks: false
+        env:
         {{ range $key, $value := .Values.docker.services.console.environment }}
         - name: {{ $key }}
           value: "{{ $value }}"
         {{ end }}
         image: {{ .Values.docker.image.console }}
         imagePullPolicy: Always
-        name: app-migrate
         command: ["app", "migrate"]
       imagePullSecrets:
       - name: {{ .Values.resourcePrefix }}docker-config

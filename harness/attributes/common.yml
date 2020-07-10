@@ -17,7 +17,8 @@ attributes.default:
     web_writable_dirs: []
     web_writable_files: []
 
-  docker-sync: yes
+  delegated-volumes: no
+  docker-sync: no
 
   jenkins:
     credentials:
@@ -64,6 +65,7 @@ attributes.default:
   docker:
     compose:
       file_version: '3.7'
+      host_volume_options: "= ':' ~ (@('delegated-volumes') ? 'delegated' : 'cached')"
     repository: = @("workspace.name")
     image:
       console: = 'node:' ~ @('node.version') ~ '-stretch'

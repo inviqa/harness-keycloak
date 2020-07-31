@@ -15,14 +15,15 @@ spec:
         app.service: {{ .Values.resourcePrefix }}keycloak
     spec:
       containers:
-      - env:
+      - name: keycloak
+        enableServiceLinks: false
+        env:
         {{ range $key, $value := .Values.docker.services.keycloak.environment }}
         - name: {{ $key }}
           value: "{{ $value }}"
         {{ end }}
         image: {{ .Values.docker.image.keycloak }}
         imagePullPolicy: Always
-        name: keycloak
         ports:
         - name: http
           containerPort: 8080

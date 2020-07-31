@@ -7,7 +7,6 @@ harness('inviqa/keycloak'):
       - harness:/
 ---
 attributes:
-  docker-sync: false
   app:
     services:
       - mysql

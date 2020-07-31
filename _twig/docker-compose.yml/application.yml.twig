@@ -11,7 +11,7 @@
 {% if @('app.build') == 'dynamic' %}
     entrypoint: /entrypoint.dynamic.sh
     volumes:
-      - {{ (dockersync) ? @('workspace.name') ~ '-sync:/app:nocopy' : './:/app:delegated' }}
+      - {{ (dockersync) ? @('workspace.name') ~ '-sync:/app:nocopy' : ('./:/app' ~ @('docker.compose.host_volume_options')) }}
       - ./.my127ws/application:/home/node/application
       - ./.my127ws/docker/image/console/root/lib/task:/lib/task
       - ./.my127ws:/.my127ws
@@ -31,7 +31,7 @@
       dockerfile: .my127ws/docker/image/keycloak/Dockerfile
 {% if @('app.build') == 'dynamic' %}
     volumes:
-      - ./themes/custom/:/opt/jboss/keycloak/themes/custom/:delegated
+      - ./themes/custom/:/opt/jboss/keycloak/themes/custom/{{ @('docker.compose.host_volume_options') }}
       - ./.my127ws:/.my127ws
 {% else %}
     image: {{ @('docker.repository') ~ ':' ~ @('app.version') ~ '-keycloak' }}

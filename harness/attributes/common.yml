@@ -66,6 +66,7 @@ attributes.default:
     compose:
       file_version: '3.7'
       host_volume_options: "= ':' ~ (@('delegated-volumes') ? 'delegated' : 'cached')"
+    registry_url: = get_docker_registry(@('docker.repository'))
     repository: = @("workspace.name")
     image:
       console: = 'node:' ~ @('node.version') ~ '-stretch'

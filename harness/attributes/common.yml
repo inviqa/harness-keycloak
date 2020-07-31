@@ -27,6 +27,7 @@ attributes.default:
   pipeline:
     publish:
       enabled: no
+      services: = publishable_services(@('services'))
     preview:
       enabled: no
       namespace: = @('workspace.name') ~ '-' ~ slugify(branch())

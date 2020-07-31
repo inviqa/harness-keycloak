@@ -1,8 +1,7 @@
 command('app publish'): |
   #!bash(workspace:/)|@
   echo "@('docker.password')" | run docker login --username="@('docker.username')" --password-stdin @('docker.registry_url')
-  run docker push @('docker.repository'):@('app.version')-console
-  run docker push @('docker.repository'):@('app.version')-keycloak
+  passthru docker-compose push @('pipeline.publish.services')
   run docker logout @('docker.registry_url')
 
 command('app deploy <environment>'):

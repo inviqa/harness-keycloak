@@ -12,6 +12,9 @@ attributes:
     services:
       - mysql
 
+  node:
+    version: 14
+
   keycloak:
     master:
       admin:

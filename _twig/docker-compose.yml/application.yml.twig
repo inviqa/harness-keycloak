@@ -20,7 +20,7 @@
 {% endif %}
     labels:
       - traefik.enable=false
-    environment: {{ to_yaml(deep_merge([
+    environment: {{ to_nice_yaml(deep_merge([
         @('services.console.environment'),
         @('services.console.environment_secrets')
       ]), 2, 6) | raw }}
@@ -48,7 +48,7 @@
         aliases:
           - {{ @('hostname') }}
       shared: {}
-    environment: {{ to_yaml(deep_merge([
+    environment: {{ to_nice_yaml(deep_merge([
         @('services.keycloak.environment'),
         @('services.keycloak.environment_secrets')
       ]), 2, 6) | raw }}

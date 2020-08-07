@@ -22,6 +22,11 @@ spec:
         - name: {{ $key }}
           value: "{{ $value }}"
         {{ end }}
+        {{- if .Values.docker.services.keycloak.environment_secrets }}
+        envFrom:
+          - secretRef:
+              name: {{ .Values.resourcePrefix }}keycloak
+        {{- end }}
         image: {{ .Values.docker.image.keycloak }}
         imagePullPolicy: Always
         ports:

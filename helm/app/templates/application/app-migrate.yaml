@@ -16,6 +16,11 @@ spec:
         - name: {{ $key }}
           value: "{{ $value }}"
         {{ end }}
+        {{- if .Values.docker.services.console.environment_secrets }}
+        envFrom:
+          - secretRef:
+              name: {{ .Values.resourcePrefix }}console
+        {{- end }}
         image: {{ .Values.docker.image.console }}
         imagePullPolicy: Always
         command: ["app", "migrate"]

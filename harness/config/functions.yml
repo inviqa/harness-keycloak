@@ -46,12 +46,12 @@ function('deep_merge', [arrays]): |
   };
   = $deepMerge($arrays);
 
-function('docker_config', [attrConfig]): |
+function('docker_config', [registryConfig]): |
   #!php
   $config = [
     'auths' => [
-      $attrConfig['registry_url'] => [
-        'auth' => base64_encode($attrConfig['username'].':'.$attrConfig['password'])
+      $registryConfig['url'] => [
+        'auth' => base64_encode($registryConfig['username'].':'.$registryConfig['password'])
       ]
     ]
   ];

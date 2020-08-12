@@ -2,8 +2,8 @@
 
 function task_init()
 {
-    task "database:available"
-    task "assets:apply"
+    task database:available
+    task assets:apply
 
     cd {{ @('backend.path') }}
 
@@ -11,5 +11,5 @@ function task_init()
     {{ step|raw }}
     {% endfor %}
 
-    task "welcome"
+    task welcome
 }

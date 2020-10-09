@@ -20,15 +20,20 @@ spec:
       - name: mysql
         enableServiceLinks: false
         env:
-        {{ range $key, $value := .environment }}
+        {{- range $key, $value := .environment }}
         - name: {{ $key }}
           value: "{{ $value }}"
-        {{ end }}
+        {{- end }}
         image: {{ .image | quote }}
         imagePullPolicy: Always
+        {{- if .options }}
         args:
-        - --ignore-db-dir
-        - lost+found
+        {{- range $key, $value := .options }}
+        {{- if $value }}
+        - {{ print "--" $key "=" $value | quote }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
         ports:
         - containerPort: 3306
         resources: {}

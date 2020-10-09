@@ -1,7 +1,8 @@
+{{ with .Values.services.console -}}
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ .Values.resourcePrefix }}app-init
+  name: {{ $.Values.resourcePrefix }}app-init
   annotations:
     helm.sh/hook: "post-install"
 spec:
@@ -11,18 +12,19 @@ spec:
       - name: app-init
         enableServiceLinks: false
         env:
-        {{ range $key, $value := .Values.docker.services.console.environment }}
+        {{ range $key, $value := .environment }}
         - name: {{ $key }}
           value: "{{ $value }}"
         {{ end }}
-        {{- if .Values.docker.services.console.environment_secrets }}
+        {{- if .environment_secrets }}
         envFrom:
           - secretRef:
-              name: {{ .Values.resourcePrefix }}console
+              name: {{ $.Values.resourcePrefix }}console
         {{- end }}
-        image: {{ .Values.docker.image.console }}
+        image: {{ .image | quote }}
         imagePullPolicy: Always
         command: ["app", "init"]
       imagePullSecrets:
-      - name: {{ .Values.resourcePrefix }}docker-config
+      - name: {{ $.Values.resourcePrefix }}docker-config
       restartPolicy: Never
+{{- end }}

@@ -8,7 +8,7 @@ metadata:
   name: {{ .Values.resourcePrefix }}keycloak
 spec:
   rules:
-  - host: {{ .Values.docker.services.console.environment.APP_HOST }}
+  - host: {{ .Values.services.console.environment.APP_HOST }}
     http:
       paths:
       - backend:

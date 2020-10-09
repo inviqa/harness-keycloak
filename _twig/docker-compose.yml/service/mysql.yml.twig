@@ -1,5 +1,5 @@
   mysql:
-    image: mysql:5.7
+    image: {{ @('services.mysql.image') }}
     labels:
       - traefik.enable=false
     environment: {{ to_nice_yaml(deep_merge([

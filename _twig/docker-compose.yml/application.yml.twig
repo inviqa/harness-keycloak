@@ -16,7 +16,7 @@
       - ./.my127ws/docker/image/console/root/lib/task:/lib/task
       - ./.my127ws:/.my127ws
 {% else %}
-    image: {{ @('docker.repository') ~ ':' ~ @('app.version') ~ '-console' }}
+    image: {{ @('services.console.image') }}
 {% endif %}
     labels:
       - traefik.enable=false
@@ -36,7 +36,7 @@
       - ./themes/custom/:/opt/jboss/keycloak/themes/custom/{{ @('docker.compose.host_volume_options') }}
       - ./.my127ws:/.my127ws
 {% else %}
-    image: {{ @('docker.repository') ~ ':' ~ @('app.version') ~ '-keycloak' }}
+    image: {{ @('services.keycloak.image') }}
 {% endif %}
     labels:
       - traefik.backend={{ @('workspace.name') }}

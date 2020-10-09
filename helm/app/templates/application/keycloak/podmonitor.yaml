@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app.service: {{ .Values.resourcePrefix }}keycloak
   podMetricsEndpoints:
-{{- if .Values.docker.services.keycloak.metricsEnabled -}}
-{{ .Values.docker.services.keycloak.metricsEndpoints | toYaml | nindent 6 -}}
+{{- if .Values.services.keycloak.metricsEnabled -}}
+{{ .Values.services.keycloak.metricsEndpoints | toYaml | nindent 6 -}}
 {{- end -}}
 {{- end -}}

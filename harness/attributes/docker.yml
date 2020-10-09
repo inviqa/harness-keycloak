@@ -67,6 +67,9 @@ attributes:
         POSTGRES_PASSWORD: = @('database.pass')
   pipeline:
     base:
+      keycloak:
+        ingress:
+          annotations: {}
       mysql:
         options: = @('services.mysql.options')
     production:

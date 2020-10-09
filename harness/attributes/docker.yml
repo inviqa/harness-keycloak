@@ -1,6 +1,8 @@
 attributes:
   services:
     console:
+      enabled: true
+      image: = @('docker.repository') ~ ':' ~ @('app.version') ~ '-console'
       publish: true
       environment:
         HOST_OS_FAMILY: = @('host.os')
@@ -19,6 +21,8 @@ attributes:
         KEYCLOAK_PASSWORD: = @('keycloak.master.admin.password')
 
     keycloak:
+      enabled: true
+      image: = @('docker.repository') ~ ':' ~ @('app.version') ~ '-keycloak'
       metricsEnabled: false
       publish: true
       environment:
@@ -42,6 +46,8 @@ attributes:
         KEYCLOAK_PASSWORD: = @('keycloak.master.admin.password')
 
     mysql:
+      enabled: "= 'mysql' in @('app.services')"
+      image: mysql:5.7
       environment:
         MYSQL_DATABASE: = @('database.name')
         MYSQL_USER: = @('database.user')
@@ -50,8 +56,19 @@ attributes:
         MYSQL_PASSWORD: = @('database.pass')
 
     postgres:
+      enabled: "= 'postgres' in @('app.services')"
+      image: postgres:9.6
       environment:
         POSTGRES_DB: = @('database.name')
         POSTGRES_USER: = @('database.user')
       environment_secrets:
         POSTGRES_PASSWORD: = @('database.pass')
+  pipeline:
+    production:
+      # assumption is that in a production style environment these would be
+      # managed services outside of the applications control
+      services:
+        mysql:
+          enabled: false
+        postgres:
+          enabled: false

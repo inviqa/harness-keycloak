@@ -1,31 +1,33 @@
+{{ with .Values.services.console -}}
+{{ if .enabled -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.resourcePrefix }}console
+  name: {{ $.Values.resourcePrefix }}console
   labels:
-    app.service: {{ .Values.resourcePrefix }}console
+    app.service: {{ $.Values.resourcePrefix }}console
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.service: {{ .Values.resourcePrefix }}console
+      app.service: {{ $.Values.resourcePrefix }}console
   template:
     metadata:
       labels:
-        app.service: {{ .Values.resourcePrefix }}console
+        app.service: {{ $.Values.resourcePrefix }}console
     spec:
       containers:
       - env:
-        {{ range $key, $value := .Values.docker.services.console.environment }}
+        {{ range $key, $value := .environment }}
         - name: {{ $key }}
           value: "{{ $value }}"
         {{ end }}
-        {{- if .Values.docker.services.console.environment_secrets }}
+        {{- if .environment_secrets }}
         envFrom:
           - secretRef:
-              name: {{ .Values.resourcePrefix }}console
+              name: {{ $.Values.resourcePrefix }}console
         {{- end }}
-        image: {{ .Values.docker.image.console }}
+        image: {{ .image | quote }}
         imagePullPolicy: Always
         name: console
         resources: {}
@@ -36,10 +38,12 @@ spec:
             - state
           initialDelaySeconds: 20
           periodSeconds: 10
-{{- if .Values.docker.image_pull_config }}
+{{- if $.Values.docker.image_pull_config }}
       imagePullSecrets:
-      - name: {{ .Values.resourcePrefix }}image-pull-config
+      - name: {{ $.Values.resourcePrefix }}image-pull-config
 {{- end }}
       restartPolicy: Always
 
 status: {}
+{{- end }}
+{{- end }}

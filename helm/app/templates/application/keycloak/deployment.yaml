@@ -1,33 +1,34 @@
+{{ with .Values.services.keycloak -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.resourcePrefix }}keycloak
+  name: {{ $.Values.resourcePrefix }}keycloak
   labels:
-    app.service: {{ .Values.resourcePrefix }}keycloak
+    app.service: {{ $.Values.resourcePrefix }}keycloak
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.service: {{ .Values.resourcePrefix }}keycloak
+      app.service: {{ $.Values.resourcePrefix }}keycloak
   template:
     metadata:
       labels:
-        app.service: {{ .Values.resourcePrefix }}keycloak
+        app.service: {{ $.Values.resourcePrefix }}keycloak
     spec:
       containers:
       - name: keycloak
         enableServiceLinks: false
         env:
-        {{ range $key, $value := .Values.docker.services.keycloak.environment }}
+        {{ range $key, $value := .environment }}
         - name: {{ $key }}
           value: "{{ $value }}"
         {{ end }}
-        {{- if .Values.docker.services.keycloak.environment_secrets }}
+        {{- if .environment_secrets }}
         envFrom:
           - secretRef:
-              name: {{ .Values.resourcePrefix }}keycloak
+              name: {{ $.Values.resourcePrefix }}keycloak
         {{- end }}
-        image: {{ .Values.docker.image.keycloak }}
+        image: {{ .image | quote }}
         imagePullPolicy: Always
         ports:
         - name: http
@@ -38,9 +39,10 @@ spec:
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 10
-{{- if .Values.docker.image_pull_config }}
+{{- if $.Values.docker.image_pull_config }}
       imagePullSecrets:
-      - name: {{ .Values.resourcePrefix }}image-pull-config
+      - name: {{ $.Values.resourcePrefix }}image-pull-config
 {{- end }}
       restartPolicy: Always
 status: {}
+{{- end }}

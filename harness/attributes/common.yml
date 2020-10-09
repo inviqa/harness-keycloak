@@ -27,11 +27,17 @@ attributes.default:
   pipeline:
     publish:
       enabled: no
+      # branches that should publish (other than change requests and qa)
+      # * is deprecated and will be limited to one branch by default in a future release
+      branches:
+        - '*'
       services: = publishable_services(@('services'))
     preview:
       enabled: no
       namespace: = @('workspace.name') ~ '-' ~ slugify(branch())
       hostname:  = @('pipeline.preview.namespace') ~ '.example.com'
+      target_branches:
+        - = @('git.default_branch')
     base:
       prometheus:
         podMonitoring: false
@@ -106,6 +112,8 @@ attributes.default:
         - passthru npm install
 
   git:
+    default_branch: = @('main_branch')
+    # potentially deprecated, unless it is repurposed
     main_branch: develop
 
   helm:

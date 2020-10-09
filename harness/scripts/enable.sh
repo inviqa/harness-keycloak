@@ -37,13 +37,12 @@ dynamic()
 
     ws external-images pull
 
-    passthru docker-compose pull
-    passthru docker-compose build --pull console
+    passthru docker-compose build console
     passthru docker-compose up -d console
 
     passthru docker-compose exec -T -u node console app build
 
-    passthru docker-compose build --pull
+    passthru docker-compose build
     passthru docker-compose up -d
 
     passthru docker-compose exec -T -u node console app init

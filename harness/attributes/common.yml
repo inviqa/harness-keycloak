@@ -85,7 +85,7 @@ attributes.default:
     build:
       when: 'true'
       steps:
-        - run "npm install"
+        - passthru npm install
     install:
       steps: []
     init:
@@ -103,7 +103,7 @@ attributes.default:
     build:
       when: -f "package.json"
       steps:
-        - run "npm install"
+        - passthru npm install
 
   git:
     main_branch: develop

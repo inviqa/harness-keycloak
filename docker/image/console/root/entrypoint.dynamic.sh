@@ -1,10 +1,5 @@
 #!/bin/bash
 
-main()
-{
-    source /entrypoint.sh
-}
-
 setup_app_volume_permissions()
 {
     case "$STRATEGY" in
@@ -34,8 +29,12 @@ resolve_volume_mount_strategy()
     elif [ "${HOST_OS_FAMILY}" = "darwin" ]; then
         if (mount | grep "/app type fuse.osxfs") > /dev/null 2>&1; then
             STRATEGY="host-osx-normal"
+        elif (mount | grep "/app type fuse.grpcfuse") > /dev/null 2>&1; then
+            STRATEGY="host-osx-normal"
         elif (mount | grep "/app type ext4") > /dev/null 2>&1; then
             STRATEGY="host-osx-dockersync"
+        elif (mount | grep "/app type btrfs") > /dev/null 2>&1; then
+            STRATEGY="host-linux-normal"
         else
             exit 1
         fi
@@ -51,4 +50,5 @@ bootstrap()
 }
 
 bootstrap
-main
+
+source /entrypoint.sh "$@"

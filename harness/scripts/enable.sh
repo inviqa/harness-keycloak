@@ -35,6 +35,8 @@ dynamic()
         passthru docker-sync stop
     fi
 
+    ws external-images pull
+
     passthru docker-compose pull
     passthru docker-compose build --pull console
     passthru docker-compose up -d console

@@ -5,6 +5,7 @@ command('app build'):
   exec: |
     #!bash(workspace:/)|@
     [ "$LOGIN_ON_BUILD" != "true" ] || echo "@('docker.password')" | run docker login --username="@('docker.username')" --password-stdin @('docker.repository')
+    ws external-images pull
     passthru docker-compose build
     [ "$LOGIN_ON_BUILD" != "true" ] || run docker logout @('docker.repository')
 

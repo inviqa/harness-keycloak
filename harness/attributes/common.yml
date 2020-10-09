@@ -83,7 +83,7 @@ attributes.default:
       password: = @('docker.password') # for backwards compatibility
     repository: = @("workspace.name")
     image:
-      console: = 'node:' ~ @('node.version') ~ '-stretch'
+      console: = 'node:' ~ @('node.version') ~ '-buster-slim'
       keycloak: = 'jboss/keycloak:' ~ @('keycloak.version')
 
   backend:
@@ -145,10 +145,10 @@ attributes.default:
     conf: []
 
   node:
-    version: 12
+    version: 14
 
   keycloak:
-    version: 9.0.0
+    version: 11.0.2
 
     external:
       http_port: 80

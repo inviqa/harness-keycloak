@@ -48,7 +48,8 @@ attributes:
 
     mysql:
       enabled: "= 'mysql' in @('app.services')"
-      image: mysql:5.7
+      image: mysql:8
+      options: = @('database.var')
       environment:
         MYSQL_DATABASE: = @('database.name')
         MYSQL_USER: = @('database.user')
@@ -58,13 +59,16 @@ attributes:
 
     postgres:
       enabled: "= 'postgres' in @('app.services')"
-      image: postgres:9.6
+      image: postgres:11
       environment:
         POSTGRES_DB: = @('database.name')
         POSTGRES_USER: = @('database.user')
       environment_secrets:
         POSTGRES_PASSWORD: = @('database.pass')
   pipeline:
+    base:
+      mysql:
+        options: = @('services.mysql.options')
     production:
       # assumption is that in a production style environment these would be
       # managed services outside of the applications control

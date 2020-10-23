@@ -83,7 +83,7 @@ attributes.default:
       password: = @('docker.password') # for backwards compatibility
     repository: = @("workspace.name")
     image:
-      console: = 'node:' ~ @('node.version') ~ '-stretch'
+      console: = 'node:' ~ @('node.version') ~ '-buster-slim'
       keycloak: = 'jboss/keycloak:' ~ @('keycloak.version')
 
   backend:
@@ -145,10 +145,10 @@ attributes.default:
     conf: []
 
   node:
-    version: 12
+    version: 14
 
   keycloak:
-    version: 9.0.0
+    version: 11.0.2
 
     external:
       http_port: 80
@@ -164,12 +164,16 @@ attributes.default:
   database:
     # possible platforms are mysql, postgres or ~ for none
     platform: mysql
+    platform_version: 8
     host: mysql
     port: '3306'
     user: app
     pass: app
     name: app
     root_pass: DV6RdNY3QcFsBk7V
+    var:
+      default_authentication_plugin: "= (@('database.platform') == 'mysql' && @('database.platform_version') >= 8.0 && @('database.platform_version') < 10.0 ? 'mysql_native_password' : '')"
+      ignore-db-dir: "= (@('database.platform') == 'mysql' && @('database.platform_version') < 8.0 ? 'lost+found' : '')"
 
   domain: my127.site
   hostname: = @('namespace') ~ '.' ~ @('domain')

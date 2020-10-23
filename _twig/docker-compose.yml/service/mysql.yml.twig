@@ -1,7 +1,12 @@
+{% set command = @('services.mysql.options')
+  | filter(v => v is not empty)
+  | map((value, var) => '--' ~ var ~ '=' ~ value)
+  | reduce((carry, v) => carry|merge([v]), []) %}
   mysql:
     image: {{ @('services.mysql.image') }}
     labels:
       - traefik.enable=false
+    command: {{ to_nice_yaml(command, 2, 6) }}
     environment: {{ to_nice_yaml(deep_merge([
         @('services.mysql.environment'),
         @('services.mysql.environment_secrets')

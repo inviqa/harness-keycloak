@@ -2,7 +2,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-{{- with .Values.docker.services.keycloak.ingress.annotations }}
+{{- with .Values.services.keycloak.ingress.annotations }}
   annotations: {{ . | toYaml | nindent 4 }}
 {{- end }}
   creationTimestamp: null

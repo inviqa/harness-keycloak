@@ -67,11 +67,12 @@ attributes:
         POSTGRES_PASSWORD: = @('database.pass')
   pipeline:
     base:
-      keycloak:
-        ingress:
-          annotations: {}
-      mysql:
-        options: = @('services.mysql.options')
+      services:
+        keycloak:
+          ingress:
+            annotations: {}
+        mysql:
+          options: = @('services.mysql.options')
     production:
       # assumption is that in a production style environment these would be
       # managed services outside of the applications control

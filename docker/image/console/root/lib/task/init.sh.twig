@@ -6,6 +6,8 @@ function task_init()
     if ! db_hasSchema; then
         task "assets:apply"
 
+        cd {{ @('backend.path') }}
+
         {% for step in @('backend.init.steps') -%}
         {{ step|raw }}
         {% endfor %}

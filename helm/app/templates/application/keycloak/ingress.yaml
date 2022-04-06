@@ -1,5 +1,5 @@
 {{ if eq .Values.ingress "standard" }}
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
 {{- with .Values.services.keycloak.ingress.annotations }}
@@ -10,13 +10,18 @@ metadata:
     app.service: {{ .Values.resourcePrefix }}keycloak
   name: {{ .Values.resourcePrefix }}keycloak
 spec:
+  {{- with (pick .Values.ingress "ingressClassName" "tls") }}
+  {{- . | toYaml | nindent 2 }}
+  {{- end }}
   rules:
   - host: {{ .Values.services.console.environment.APP_HOST }}
     http:
       paths:
       - backend:
-          serviceName: {{ .Values.resourcePrefix }}keycloak
-          servicePort: 8080
+          service:
+            name: {{ .Values.resourcePrefix }}keycloak
+            port:
+              number: 8080
 status:
   loadBalancer: {}
 {{ end }}

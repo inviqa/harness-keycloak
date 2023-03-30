@@ -4,7 +4,7 @@ pipeline {
         MY127WS_KEY = credentials('{{ @('jenkins.credentials.my127ws_key') }}')
         MY127WS_ENV = "pipeline"
     }
-    triggers { cron(env.BRANCH_NAME == '{{ @('git.default_branch') }}' ? 'H H(0-6) * * *' : '') }
+    triggers { cron(env.BRANCH_NAME == '{{ @('git.default_branch') }}' ? 'H H(2-6) * * 1' : '') }
     stages {
         stage('Build') {
             steps { sh 'ws install' }
@@ -17,7 +17,7 @@ pipeline {
 {% if @('pipeline.publish.enabled') == 'yes' %}
         stage('Publish') {
             when {
-                not { triggeredBy 'TimerTrigger' } 
+                not { triggeredBy 'TimerTrigger' }
                 anyOf {
 {% for branch in @('pipeline.publish.branches') %}
                     branch '{{ branch }}'
@@ -32,7 +32,7 @@ pipeline {
 {% endif %}
                 }
             }
-            steps { 
+            steps {
                 sh 'ws app publish'
 {% if @('pipeline.publish.chart.enabled') %}
                 sh 'ws app publish chart "${GIT_BRANCH}" "{{ @('workspace.name') }} build artifact ${GIT_COMMIT}"'
